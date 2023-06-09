@@ -52,46 +52,6 @@
             background-color: pink;
         }
     </style>
-    <script>
-        function consultarCep(event) {
-            event.preventDefault();
-            
-            var cepInput = document.getElementById("cep");
-            var cepValue = cepInput.value;
-            
-            if (cepValue.trim() != "") {
-                var xhttp = new XMLHttpRequest();
-                var url = "https://viacep.com.br/ws/" + cepValue + "/json/";
-                
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var response = JSON.parse(this.responseText);
-                        
-                        if (response.hasOwnProperty("erro")) {
-                            exibirMensagem("CEP não encontrado.");
-                        } else {
-                            var resultado = document.getElementById("resultado");
-                            resultado.innerHTML = "<h2>Resultado da consulta:</h2>" +
-                                "<p><strong>CEP:</strong> " + response.cep + "</p>" +
-                                "<p><strong>Logradouro:</strong> " + response.logradouro + "</p>" +
-                                "<p><strong>Bairro:</strong> " + response.bairro + "</p>" +
-                                "<p><strong>Cidade:</strong> " + response.localidade + "</p>" +
-                                "<p><strong>Estado:</strong> " + response.uf + "</p>";
-                        }
-                    }
-                };
-                xhttp.open("GET", url, true);
-                xhttp.send();
-            } else {
-                exibirMensagem("Por favor, digite um CEP válido.");
-            }
-        }
-        
-        function exibirMensagem(mensagem) {
-            var resultado = document.getElementById("resultado");
-            resultado.innerHTML = "<p>" + mensagem + "</p>";
-        }
-    </script>
     <title>Document</title>
 </head>
 <body>
@@ -101,7 +61,6 @@
         <input type="text" id="cep" name="cep" required>
         <button type="submit">Consultar</button>
     </form>
-    <div id="resultado"></div>
 </body>
 </html>
 
